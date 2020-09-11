@@ -14,9 +14,9 @@ XILINX_PATH := $(call mkpath,$(XILINX_PATH))
 
 XILINX_PART = $(shell $(XILINX_BIN)/xtclsh ../xgetpartname.tcl sd2snes_$(CORE).xise)
 
-XILINX_SYNTH  := "Synthesize - XST"
-XILINX_IMPL   := "Implement Design"
-XILINX_BITGEN := "Generate Programming File"
+XILINX_SYNTH  := 'Synthesize - XST'
+XILINX_IMPL   := 'Implement Design'
+XILINX_BITGEN := 'Generate Programming File'
 
 # make pretty Windows style paths for SmartXplorer...
 ifeq ($(HOST),CYGWIN)

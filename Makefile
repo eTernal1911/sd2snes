@@ -19,8 +19,8 @@ MK3EXT := bi3
 MK2CORES := base cx4 gsu obc1 sdd1 sa1 sgb
 MK3CORES := base cx4 gsu obc1 sdd1 sa1 sgb
 
-MK2FPGA := $(foreach C,$(MK2CORES),$(FPGAPATH)/sd2snes_$C/fpga_$C.$(MK2EXT))
-MK3FPGA := $(foreach C,$(MK3CORES),$(FPGAPATH)/sd2snes_$C/fpga_$C.$(MK3EXT))
+MK2FPGA := $(foreach C,$(MK2CORES),$(FPGAPATH)/sd2snes_$C/fpga_$C*.$(MK2EXT))
+MK3FPGA := $(foreach C,$(MK3CORES),$(FPGAPATH)/sd2snes_$C/fpga_$C*.$(MK3EXT))
 
 UTILS := utils
 

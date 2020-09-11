@@ -1,10 +1,10 @@
 HOST = CYGWIN
-XILINX_HOME = /cygdrive/d/Xilinx/14.7/ISE_DS
+XILINX_HOME = D:/Development/Xilinx/14.7/ISE_DS
 XILINX_BIN = $(XILINX_HOME)/ISE/bin/nt64
 XILINX_PATHS  = ISE/bin/nt64 ISE/lib/nt64
 XILINX_PATHS += PlanAhead/bin
 XILINX_PATHS += EDK/bin/lib64 EDK/lib/nt64
-INTEL_BIN = /cygdrive/d/intelFPGA_lite/18.1/quartus/bin64
+INTEL_BIN = D:/Development/IntelFPGA/20.1/quartus/bin64
 
 # HOST = LINUX
 # XILINX_HOME = /opt/Xilinx/14.7/ISE_DS

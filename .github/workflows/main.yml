@@ -1,0 +1,43 @@
+name: CI (Builds SD2SNES firmware/menu)
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build Firmware + Menu
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Checking out source code...
+
+      - name: Installing GCC ARM Embedded Toolchain
+        run: |
+          sudo apt-get install gcc-arm-none-eabi
+
+      - name: Building firmware (MkII / MkIII)...
+        run: |
+          cd utils && make && cd ..
+          cd src/utils && make && cd ..
+          make CONFIG=config-mk2
+          make CONFIG=config-mk3
+
+      - name: Installing snescom/sneslink Toolchain
+        run: |
+          sudo apt-get install libboost-all-dev
+          wget https://bisqwit.iki.fi/src/arch/snescom-1.7.4.1.tar.gz
+          tar xzf snescom-1.7.4.1.tar.gz
+          cd snescom-1.7.4.1 && sudo make
+          sudo make install
+
+      - name: Building menu...
+        run: cd snes && make
+
+      - uses: actions/upload-artifact@v2
+        name: Uploading firmware/menu binaries
+        with:
+          name: sd2snes
+          path: |
+            snes/m*nu.bin
+            src/obj-mk2/firmware.img
+            src/obj-mk3/firmware.im3
