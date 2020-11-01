@@ -12,62 +12,83 @@ read_pad:
     stz pad_left   ; (including right)
     stz pad_a      ; (including x)
     stz pad_l      ; (including r)
+    stz pad_0      ; (including 1)
+    stz pad_2      ; (including 3)
+    stz pad_4      ; (including 5)
+    stz pad_6      ; (including 7)
+    stz pad_8      ; (including 9)
+    stz pad_ast    ; (including hash)
+    stz pad_dot    ; (including clear)
+    stz pad_equal
 
 read_pad1
-    ldx pad1mem   ;byetUDLRaxlriiii
-    lda $4218
-    and #$000f
-    bne +
-    lda $4218
-+   sta pad1mem
-    lda $421a
-    and #$000f
-    bne +
-    lda $421a
-+   ora pad1mem
-    sta pad1mem
+    ;byetUDLRaxlriiii
+    lda pad1mem : pha   
+    ;0123456789*#.C?=  (? is unused)
+    lda pad1mem_ntt : pha
+    
+    lda #$01 : sta $4016 : stz $4016 ; latch
+    ldx #16
+-   sep #$20 : .as : lda $4016 : rep #$20 : .al
+    lsr : rol pad1mem : dex : bne -
+
+    ; is ntt data pad?
+    lda pad1mem : and #$000f : cmp #$04 : bne +
+    ldx #16
+-   sep #$20 : .as : lda $4016 : rep #$20 : .al
+    lsr : rol pad1mem_ntt : dex : bne -
++
+    plx : ply
+    lda pad1mem
     and #$0f00
     bne read_pad1_count
     stz pad1delay
 read_pad1_cont1
-    txa
-    eor pad1mem
-    and pad1mem
-    sta pad1trig
+    tya : eor pad1mem : and pad1mem : sta pad1trig
+    txa : eor pad1mem_ntt : and pad1mem_ntt : sta pad1trig_ntt
     lda #$0010
     cmp pad1delay
     bne read_pad1_cont2
-    stz pad1mem
+    stz pad1mem : stz pad1mem_ntt
     lda #$000d
     sta pad1delay
 read_pad1_cont2
     lda pad1trig
     sep #$20 : .as
-    rol
-    rol pad_a
-    rol
-    rol pad_x
-    rol
-    rol pad_l
-    rol
-    rol pad_r
+    rol : rol pad_a
+    rol : rol pad_x
+    rol : rol pad_l
+    rol : rol pad_r
     xba
-    rol
-    rol pad_b
-    rol
-    rol pad_y
-    rol
-    rol pad_select
-    rol
-    rol pad_start
-    rol
-    rol pad_up
-    rol
-    rol pad_down
-    rol
-    rol pad_left
-    rol
-    rol pad_right
+    rol : rol pad_b
+    rol : rol pad_y
+    rol : rol pad_select
+    rol : rol pad_start
+    rol : rol pad_up
+    rol : rol pad_down
+    rol : rol pad_left
+    rol : rol pad_right
+    ;xba : and #$0f : cmp #$04 : bne +
+    rep #$20 : .al
+    lda pad1trig_ntt
+    sep #$20 : .as
+    rol : rol pad_8     
+    rol : rol pad_9     
+    rol : rol pad_ast   
+    rol : rol pad_hash  
+    rol : rol pad_dot   
+    rol : rol pad_clear
+    rol 
+    rol : rol pad_equal     
+    xba
+    rol : rol pad_0     
+    rol : rol pad_1     
+    rol : rol pad_2     
+    rol : rol pad_3     
+    rol : rol pad_4     
+    rol : rol pad_5     
+    rol : rol pad_6     
+    rol : rol pad_7
   plb
   plp
   rts

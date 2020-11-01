@@ -134,6 +134,8 @@ filesel_updates:
   bne key_a
   lda pad_x
   bne key_x
+  lda pad_equal
+  bne key_equal
   lda pad_l
   bne key_l
   lda pad_r
@@ -165,6 +167,9 @@ key_select
   bra fileselupd_out
 key_start
   jsr filesel_key_start
+  bra fileselupd_out
+key_equal
+  jsr show_sysinfo
   bra fileselupd_out
 key_l
   jsr filesel_key_l

@@ -50,7 +50,9 @@ fd_addr         .word 0     ; address of current "file descriptor"
 fd_bank         .byt 0      ; bank of current "file descriptor"
 fd_fnoff        .word 0     ; offset of filename in file descriptor
 pad1mem         .word 0
+pad1mem_ntt     .word 0
 pad1trig        .word 0
+pad1trig_ntt    .word 0
 pad1delay       .word 0
 window_x        .byt 0
 window_y        .byt 0
@@ -229,6 +231,22 @@ pad_a           .byt 0
 pad_x           .byt 0
 pad_l           .byt 0
 pad_r           .byt 0
+
+pad_0           .byt 0
+pad_1           .byt 0
+pad_2           .byt 0
+pad_3           .byt 0
+pad_4           .byt 0
+pad_5           .byt 0
+pad_6           .byt 0
+pad_7           .byt 0
+pad_8           .byt 0
+pad_9           .byt 0
+pad_ast         .byt 0
+pad_hash        .byt 0
+pad_dot         .byt 0
+pad_clear       .byt 0
+pad_equal       .byt 0
 
 ;------------------------
 snes_system_config
